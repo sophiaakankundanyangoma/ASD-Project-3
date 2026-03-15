@@ -6,17 +6,29 @@ This project builds upon the theoretical framework and Exploratory Data Analysis
 ## Project Structure
 
 ```
-asd-poject_asd assignment2/
-├── data/                         # Dataset (not tracked because raw data was not uploaded)
-│   └── asd.csv
-├── src/
-│   └── asd_modeling.py           # Main modeling script
-├── notebooks/
-│   └── asd_modeling.ipynb        # Colab/Jupyter
-├── outputs/                      # Generated plots and figures
-├── .gitignore
-├── requirements.txt
-└── README.md
+ASD-Project/
+│
+├── data/                   # Raw datasets (not included in repo)
+│   ├── Autism_Adult_Data.csv
+│   ├── Autism_Child_Data.csv
+│   └── Autism_Adolescent_Data.csv
+│
+├── outputs/                # Generated outputs (plots, reports)
+│   ├── correlation_heatmap.png
+│   ├── target_class_distribution.png
+│   ├── hist_gender_by_ASD.png
+│   ├── confusion_matrices.png
+│   ├── pr_curve_comparison.png
+│   ├── rf_feature_importance.png
+│   ├── shap_summary.png
+│   ├── shap_local_no_asd.png
+│   └── shap_local_asd.png
+│
+├── .gitignore              # Ignored files (e.g., .venv, data/, outputs/)
+├── requirements.txt        # Python dependencies
+├── asd_modeling.ipynb      # Jupyter notebook with all analysis and models
+└── README.md               # Project overview and instructions
+
 ```
 
 ---
