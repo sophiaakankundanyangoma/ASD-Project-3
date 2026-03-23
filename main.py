@@ -85,7 +85,7 @@ plt.figure(figsize=(12,10))
 sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap="coolwarm", linewidths=0.5)
 plt.title("Feature Correlation Heatmap")
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.tiff", dpi=300)
 plt.show()
 
 # Step 5; Features & Target
@@ -103,7 +103,7 @@ plt.title("Target Class Distribution (ASD)")
 plt.xlabel("ASD Diagnosis (0 = No ASD, 1 = ASD)")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/target_class_distribution.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/target_class_distribution.tiff", dpi=300)
 plt.show()
 
 print("\nTarget class distribution:\n", y.value_counts())
@@ -125,7 +125,7 @@ plt.xlabel("Gender")
 plt.ylabel("Count")
 plt.legend(title='ASD Diagnosis', labels=['No ASD', 'ASD'])
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/hist_gender_by_ASD.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/hist_gender_by_ASD.tiff", dpi=300)
 plt.show()
 
 # Step 7; Train/Test split
@@ -251,7 +251,7 @@ for ax, preds, title in zip(
     ax.set_xlabel("Predicted")
     ax.set_ylabel("Actual")
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/confusion_matrices.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/confusion_matrices.tiff", dpi=300)
 plt.show()
 
 # Step 14; Precision-Recall Curves (Combined)
@@ -274,7 +274,7 @@ plt.title("Precision-Recall Curve Comparison")
 plt.legend()
 plt.grid()
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/pr_curve_comparison.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/pr_curve_comparison.tiff", dpi=300)
 plt.show()
 
 # Step 15; Random Forest Feature Importance
@@ -289,7 +289,7 @@ plt.figure(figsize=(10,6))
 sns.barplot(x="Importance", y="Feature", data=importance_df)
 plt.title("Random Forest Feature Importance")
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/rf_feature_importance.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/rf_feature_importance.tiff", dpi=300)
 plt.show()
 
 # Step 16; Shap Explainability (XGBoost)
@@ -301,7 +301,7 @@ shap_values = explainer(X_test)
 # 16a. Global summary
 shap.summary_plot(shap_values, X_test, show=False)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/shap_summary.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/shap_summary.tiff", dpi=300)
 plt.show()
 
 
@@ -311,7 +311,7 @@ plt.figure(figsize=(12,6))
 shap.plots.waterfall(shap_values[idx_no_asd], show=False)
 plt.title("Local SHAP - Person without ASD", fontsize=14)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/shap_local_no_asd.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/shap_local_no_asd.tiff", dpi=300)
 plt.show()
 
 # 16c. Local explanation - Person WITH ASD
@@ -320,7 +320,7 @@ plt.figure(figsize=(12,6))
 shap.plots.waterfall(shap_values[idx_asd], show=False)
 plt.title("Local SHAP - Person with ASD", fontsize=14)
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_DIR}/shap_local_asd.png", dpi=150)
+plt.savefig(f"{OUTPUT_DIR}/shap_local_asd.tiff", dpi=300)
 plt.show()
 
 print(f"\nAll outputs saved to: {OUTPUT_DIR}/")
