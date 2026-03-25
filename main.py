@@ -92,7 +92,7 @@ plt.show()
 # ---------------------------------------------------------------
 # DROP 'result' here — it is a composite score computed directly
 # from A1-A10 and dominates SHAP values, masking the individual
-# behavioural features we want to explain.
+# behavioral features we want to explain.
 # ---------------------------------------------------------------
 TARGET_COL = "Class/ASD"
 X = df.drop(columns=[TARGET_COL])
