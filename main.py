@@ -17,7 +17,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     classification_report, confusion_matrix,
-    average_precision_score, precision_recall_curve, PrecisionRecallDisplay
+    average_precision_score, precision_recall_curve
 )
 
 import shap
@@ -89,11 +89,18 @@ plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.tiff", dpi=300)
 plt.show()
 
 # Step 5; Features & Target
-
+# ---------------------------------------------------------------
+# DROP 'result' here — it is a composite score computed directly
+# from A1-A10 and dominates SHAP values, masking the individual
+# behavioural features we want to explain.
+# ---------------------------------------------------------------
 TARGET_COL = "Class/ASD"
 X = df.drop(columns=[TARGET_COL])
+X = X.drop(columns=['result'], errors='ignore')  # <-- FIX: drop before training
 y = df[TARGET_COL]
 
+print(f"\nFeatures used for training ({X.shape[1]} total):")
+print(X.columns.tolist())
 
 # Step 6; Target Distribution Plot
 
@@ -119,7 +126,7 @@ sns.histplot(
     shrink=0.8,
     palette='Set1'
 )
-plt.xticks([0,1], ['Female', 'Male'])  # Adjust if your encoding is reversed
+plt.xticks([0,1], ['Female', 'Male'])
 plt.title("Gender Distribution by ASD Diagnosis")
 plt.xlabel("Gender")
 plt.ylabel("Count")
@@ -292,7 +299,9 @@ plt.tight_layout()
 plt.savefig(f"{OUTPUT_DIR}/rf_feature_importance.tiff", dpi=300)
 plt.show()
 
-# Step 16; Shap Explainability (XGBoost)
+# Step 16: SHAP Explainability (XGBoost)
+# 'result' is already excluded from training so X_test is clean —
+# no need to drop anything here.
 
 xgb_model = xgb_pipeline.named_steps["model"]
 explainer = shap.TreeExplainer(xgb_model)
@@ -303,7 +312,6 @@ shap.summary_plot(shap_values, X_test, show=False)
 plt.tight_layout()
 plt.savefig(f"{OUTPUT_DIR}/shap_summary.tiff", dpi=300)
 plt.show()
-
 
 # 16b. Local explanation - Person WITHOUT ASD
 idx_no_asd = (y_test == 0).values.argmax()
